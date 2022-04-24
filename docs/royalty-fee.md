@@ -1,5 +1,6 @@
 # Royalty Fee
 
+## IERC2981
 ```js
 interface IERC2981 {
     /// @notice Called with the sale price to determine how much royalty
@@ -10,5 +11,6 @@ interface IERC2981 {
     /// @return royaltyAmount - the royalty payment amount for _salePrice
     function royaltyInfo(uint256 _tokenId, uint256 _salePrice) external view returns (address receiver, uint256 royaltyAmount);
 }
-
 ```
+
+## RoyaltyRegisterHub
