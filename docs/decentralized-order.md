@@ -1,6 +1,6 @@
 # Decentralized Order
 
-## Decentralized Order
+## Order 
 
 ```js
 /* An order on the exchange. */
@@ -77,4 +77,6 @@ event OrderApprovedPartTwo(
 
 ```
 
-## Extra Order Message on IPFS
+## Extra Order Metadata on IPFS
+
+Users can write extra order message(such as personal contact information or the token-id set in trait-based order) to IPFS and write the IPFS hash to the event.

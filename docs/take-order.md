@@ -28,14 +28,14 @@
             [   // uint[12] uints,
                 //buy
                 exchangePrice,                // uint basePrice
-                web3.utils.toBN(0),     // uint extra
+                web3.utils.toBN(0),           // uint extra
                 timestamp,                    // uint listingTime
                 expireTime,                   // uint expirationTime
                 web3.utils.toBN(salt),        // uint salt
                 emptyTokenId,                 // uint tokenId
                 //sell
                 exchangePrice,                // uint basePrice
-                web3.utils.toBN(0),     // uint extra
+                web3.utils.toBN(0),           // uint extra
                 timestamp,                    // uint listingTime
                 expireTime,                   // uint expirationTime
                 web3.utils.toBN(salt),        // uint salt
@@ -51,7 +51,8 @@
             sellReplacementPattern, // bytes replacementPatternSell,
             [],// bytes staticExtradataBuy,
             [],// bytes staticExtradataSell,
-            "0x00",// bytes32 rssMetadata
+            "0x0000000000000000000000000000000000000000000000000000000000000000",
+                // bytes32 rssMetadata, hex encoding ipfsHash
             {from: player0}
         );
 ```
