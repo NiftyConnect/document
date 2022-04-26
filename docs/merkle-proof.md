@@ -1,8 +1,33 @@
 # Merkle Proof
 
+The merkle root and proof is only necessary in traid-based order. For other order type, just leave out this.
 
+## Merkle Root Calculation Algorithm
+
+Suppose an user filter out a set of tokenIds according to its trait, and the token id set is `[7,8,9,10,11,12,13]`. Then we can build a binary tree:
+
+```
+               hash1234(hash12,hash34)
+                  /            \
+      hash12(hash1,hash2)   hash34(hash3,hash4)
+       /          \             /             \
+  hash1(7,8)  hash2(9,10)  hash3(11,12)  hash4(13,13)
+   /   \       /    \        /    \           ||
+  7     8      9    10      11    12          13 
+
+```
+
+### MerkleRoot
+
+The merkleRoot is `hash1234(hash12,hash34)` and here its value is `0x72da2598329de27c7d20ea24372ca2a4732aaac2d9386467373baa7874b870f6`.
+
+### MerkleProof
+
+Suppose the target leaf is `7`, then the merkle proof is `[8, hash2(9,10), hash34(hash3,hash4)]`. Suppose the target leaf is `10`, then the merkle proof is `[9, hash1(7,8), hash34(hash3,hash4)]`.
 
 ## Generate Merkle Proof And Root
+
+This is the example JS code to calculate merkle root and merkle proof.
 
 ```js
 const keccak256 = require('keccak256');
@@ -99,63 +124,21 @@ function generateMerkleProofAndRoot(targetTokenId, tokenIds) {
     }
     return {merkleRoot, merkleProof};
 }
-
 ```
 
-## Generate Buy Replacement Pattern
+## Metadata to IPFS
 
+- Write tokenIds to a text file and upload it to IPFS. 
+- Convert IPFS hash to bytes32
+- Fill `merkleRoot` to `merkleData[0]` and `ipfsHash` to `merkleData[1]`
+
+This is the example JS code to convert the bese58 encoding ipfs hash to bytes32
 ```js
-function generateBuyReplacementPattern(totalLeaf) {
-    const merkleProofLength = calculateProofLength(totalLeaf);
+import bs58 from 'bs58'
 
-    let buyReplacementPattern = Buffer.from(web3.utils.hexToBytes(
-        "0x" +
-        "00000000" +                                                          // selector
-        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +  // from
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // to
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // token
-        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +  // tokenId
-        "0000000000000000000000000000000000000000000000000000000000000000" +
-        "0000000000000000000000000000000000000000000000000000000000000000" +
-        "0000000000000000000000000000000000000000000000000000000000000000"
-    ));
-
-    for(let idx=0; idx<merkleProofLength;idx++) {
-        buyReplacementPattern = Buffer.concat([
-            buyReplacementPattern,
-            Buffer.from(web3.utils.hexToBytes("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"))
-        ]);
-    }
-    return buyReplacementPattern;
-
+function convertIpfsHashTOBytes32(ipfsHash) {
+  return "0x"+bs58.decode(ipfsHash).slice(2).toString('hex')
 }
 ```
 
-## Generate Sell Replacement Pattern
-
-```js
-
-function generateSellReplacementPattern(totalLeaf) {
-    const merkleProofLength = calculateProofLength(totalLeaf);
-
-    let sellReplacementPattern = Buffer.from(web3.utils.hexToBytes(
-        "0x" +
-        "00000000" +
-        "0000000000000000000000000000000000000000000000000000000000000000" + // selector
-        "0000000000000000000000000000000000000000000000000000000000000000" + // from
-        "0000000000000000000000000000000000000000000000000000000000000000" + // to
-        "0000000000000000000000000000000000000000000000000000000000000000" + // token
-        "0000000000000000000000000000000000000000000000000000000000000000" + // tokenId
-        "0000000000000000000000000000000000000000000000000000000000000000" +
-        "0000000000000000000000000000000000000000000000000000000000000000"
-    ));
-
-    for(let idx=0; idx<merkleProofLength;idx++) {
-        sellReplacementPattern = Buffer.concat([
-            sellReplacementPattern,
-            Buffer.from(web3.utils.hexToBytes("0x0000000000000000000000000000000000000000000000000000000000000000"))
-        ]);
-    }
-    return sellReplacementPattern;
-}
-```
+Suppose tokenIds is `[7,8,9,10,11,12,13]`, then the original ipfs hash is `QmZHbCohMvg1Pcf6rbh21DBhkCb7qCkwb37QK8xf6HQP39`, the bytes32 ipfs hash is `0x1220a2a7d9b6454df5a7f4809215f12cc347e9662a4cdcd69d83e8a0f2cf65e1ce4c`.
