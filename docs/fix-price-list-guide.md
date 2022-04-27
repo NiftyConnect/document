@@ -122,8 +122,8 @@ await niftyConnectExchangeInst.makeOrder_(
     sellReplacementPattern, // replacementPattern
     [],                     // staticExtradata
     [
-        "0x0000000000000000000000000000000000000000000000000000000000000000", // merkle root hash
-        "0x0000000000000000000000000000000000000000000000000000000000000000"  // ipfs hash which contain the metadata of merkle proof 
+        "0x0000000000000000000000000000000000000000000000000000000000000000", // merkle root hash, for trait-based order
+        "0x0000000000000000000000000000000000000000000000000000000000000000"  // ipfs hash which contain the metadata of merkle proof, for trait-based order
     ],                      // merkleData
     {from: nftOwner}
 );

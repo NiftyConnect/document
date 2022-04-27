@@ -4,7 +4,7 @@ The merkle root and proof is only necessary in traid-based order. For other orde
 
 ## Merkle Root Calculation Algorithm
 
-Suppose an user filter out a set of tokenIds according to its trait, and the token id set is `[7,8,9,10,11,12,13]`. Then we can build a binary tree:
+Suppose a user filter out a set of tokenIds according to its traits, and the token id array is `[12,10,7,8,9,11,13]`. Then it needs to sort the token id array and build a binary tree:
 
 ```
                hash1234(hash12,hash34)

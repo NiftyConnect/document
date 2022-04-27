@@ -6,7 +6,7 @@ const ERC721SafeTransferSelector = web3.utils.toBN(1);
 const ERC1155SafeTransferSelector = web3.utils.toBN(2);
 ```
 
-This protocol only supports [ERC721](https://eips.ethereum.org/EIPS/eip-721) and [ERC1155](https://eips.ethereum.org/EIPS/eip-1155) assets. Users need to select proper selector according to their asset type and targe transfer method. 
+This protocol only supports [ERC721](https://eips.ethereum.org/EIPS/eip-721) and [ERC1155](https://eips.ethereum.org/EIPS/eip-1155) assets. Users need to select proper selector according to their asset type and target transfer method. 
 
 ```js
 interface IERC721 {

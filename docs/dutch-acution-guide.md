@@ -1,6 +1,6 @@
 # Dutch Auction Guide
 
-## Auction Order And Buy
+## Make Auction Order And Buy
 
 ```js
 
@@ -93,9 +93,8 @@ const ERC721SafeTransferSelector = web3.utils.toBN(1);
 
 const sellReplacementPattern = generateBuyReplacementPatternForNormalOrder(false)
 
-let latestBlock = await web3.eth.getBlock("latest");
 const listtime = Math.floor(Date.now() / 1000);
-const expireTime = web3.utils.toBN(listtime).add(web3.utils.toBN(10)); // expire at one minute later
+const expireTime = web3.utils.toBN(listtime).add(web3.utils.toBN(3600)); // expire at one minute later
 
 let salt = "0x"+crypto.randomBytes(32).toString("hex");
 
@@ -104,7 +103,7 @@ await niftyConnectExchangeInst.makeOrder_(
         NiftyConnectExchange.address,                       // exchange
         nftOwner,                                           // maker
         "0x0000000000000000000000000000000000000000",       // taker
-        makerRelayerFeeRecipient,                         // makerRelayerFeeRecipient
+        makerRelayerFeeRecipient,                           // makerRelayerFeeRecipient
         "0x0000000000000000000000000000000000000000",       // takerRelayerFeeRecipient
         TestERC721.address,                                 // nftAddress
         "0x0000000000000000000000000000000000000000",       // staticTarget
@@ -119,7 +118,7 @@ await niftyConnectExchangeInst.makeOrder_(
         expireTime,                   // uint expirationTime
         web3.utils.toBN(salt),        // uint salt
         ERC721TransferSelector,       // uint merkleValidatorSelector
-        tokenIdIdx,                   // uint tokenId
+        tokenId,                      // uint tokenId
         ERC721_AMOUNT,                // uint amount
         0,                            // uint totalLeaf
     ],
@@ -128,15 +127,15 @@ await niftyConnectExchangeInst.makeOrder_(
     sellReplacementPattern, // replacementPattern
     [],                     // staticExtradata
     [
-        "0x0000000000000000000000000000000000000000000000000000000000000000",
-        "0x0000000000000000000000000000000000000000000000000000000000000000"
+        "0x0000000000000000000000000000000000000000000000000000000000000000", // merkle root hash, for trait-based order 
+        "0x0000000000000000000000000000000000000000000000000000000000000000"  // ipfs hash which contain the metadata of merkle proof, for trait-based order 
     ],                      // merkleData
     {from: nftOwner}
 );
 
 const sellCalldata = await niftyConnectExchangeInst.buildCallData(
     ERC721TransferSelector, // uint selector,
-    player0, // address from,
+    nftOwner, // address from,
     "0x0000000000000000000000000000000000000000", // address to,
     TestERC721.address,// address nftAddress,
     tokenId, // uint256 tokenId,
@@ -144,6 +143,39 @@ const sellCalldata = await niftyConnectExchangeInst.buildCallData(
     "0x00", // bytes32 merkleRoot
     [],// bytes32[] memory merkleProof
 );
+
+const currentPrice = await niftyConnectExchangeInst.calculateCurrentPrice_(
+    [
+        NiftyConnectExchange.address,                       // exchange
+        nftOwner,                                           // maker
+        "0x0000000000000000000000000000000000000000",       // taker
+        makerRelayerFeeRecipient,                           // makerRelayerFeeRecipient
+        "0x0000000000000000000000000000000000000000",       // takerRelayerFeeRecipient
+        TestERC721.address,                                 // nftAddress
+        "0x0000000000000000000000000000000000000000",       // staticTarget
+        TestERC20.address,                                  // paymentToken
+        nftOwner,                                           // from
+        "0x0000000000000000000000000000000000000000"        // to
+    ],
+    [
+        exchangePrice,                // uint basePrice
+        extraPrice,                   // uint extra
+        timestamp,                    // uint listingTime
+        expireTime,                   // uint expirationTime
+        web3.utils.toBN(salt),        // uint salt
+        ERC721TransferSelector,       // uint merkleValidatorSelector
+        tokenId,                      // uint tokenId
+        ERC721_AMOUNT,                // uint amount
+        0,                            // uint totalLeaf
+    ],
+    1,                      // side
+    1,                      // saleKind
+    sellReplacementPattern, // replacementPattern
+    [],                     // staticExtradata
+    "0x00",                 // merkleRoot
+);
+
+console.log("currentPrice: "+currentPrice.toString());
 
 const buyer = accounts[3];
 const takerRelayerFeeRecipient = accounts[4];
@@ -190,14 +222,14 @@ await niftyConnectExchangeInst.takeOrder_(
         listtime,                     // uint listingTime
         expireTime,                   // uint expirationTime
         web3.utils.toBN(salt),        // uint salt
-        tokenIdIdx,                   // uint tokenId
+        tokenId,                      // uint tokenId
         //sell
         exchangePrice,                // uint basePrice
         extraPrice,                   // uint extra
         listtime,                     // uint listingTime
         expireTime,                   // uint expirationTime
         web3.utils.toBN(salt),        // uint salt
-        tokenIdIdx,                   // uint tokenId
+        tokenId,                      // uint tokenId
     ],
     [   // uint8[4] sidesKindsHowToCalls,
         0, 1,

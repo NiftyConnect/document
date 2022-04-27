@@ -63,4 +63,4 @@ uint public takerRelayerFeeShare = 1500;
 uint public protocolFeeShare = 500;
 ```
 
-The above parameters in the protocol can be updated by on-chain governance.
+The above parameters in the protocol can be modified by on-chain governance.
