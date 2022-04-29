@@ -1,4 +1,4 @@
-# Decentralized Order Schema
+# Decentralized Order
 
 ## Order Schema
 
@@ -75,8 +75,8 @@ event OrderApprovedPartOne(
                             address indexed maker, 
                             address taker, 
                             address indexed makerRelayerFeeRecipient, 
-                            SaleKindInterface.Side side, 
-                            SaleKindInterface.SaleKind saleKind, 
+                            uint8 side, 
+                            uint8 saleKind, 
                             address nftAddress, 
                             uint256 tokenId, 
                             bytes32 ipfsHash);

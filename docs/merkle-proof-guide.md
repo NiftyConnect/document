@@ -1,4 +1,4 @@
-# Merkle Proof
+# Merkle Proof Guide
 
 The merkle root and proof is only necessary in traid-based order. For other order type, just leave out this.
 
@@ -136,9 +136,9 @@ This is the example JS code to convert the bese58 encoding ipfs hash to bytes32
 ```js
 import bs58 from 'bs58'
 
-function convertIpfsHashTOBytes32(ipfsHash) {
+function convertIpfsHashToBytes32(ipfsHash) {
   return "0x"+bs58.decode(ipfsHash).slice(2).toString('hex')
 }
 ```
 
-Suppose tokenIds is `[7,8,9,10,11,12,13]`, then the original ipfs hash is `QmZHbCohMvg1Pcf6rbh21DBhkCb7qCkwb37QK8xf6HQP39`, the bytes32 ipfs hash is `0x1220a2a7d9b6454df5a7f4809215f12cc347e9662a4cdcd69d83e8a0f2cf65e1ce4c`.
+Suppose tokenIds is `[7,8,9,10,11,12,13]`, then the original ipfs hash is `QmZHbCohMvg1Pcf6rbh21DBhkCb7qCkwb37QK8xf6HQP39`, the bytes32 ipfs hash is `0xa2a7d9b6454df5a7f4809215f12cc347e9662a4cdcd69d83e8a0f2cf65e1ce4c`.

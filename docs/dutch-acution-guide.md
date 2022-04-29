@@ -1,72 +1,33 @@
 # Dutch Auction Guide
 
-## Make Auction Order And Buy
+## Introduction
+The Dutch auction order is used to sell a nft asset with a given start price and end price. The actual match price will decrease linearly.
+
+## Dutch Auction And Buy
+
+### Select Selector.
+Please refer to [nft transfer selector guide](nft-transfer-selector.md)
+
+### Calculate replacementPattern
+Please refer to [replacement pattern guide](replacement-pattern-guide.md)
+
+### Parse order parameters
+Please refer to [order event](decentralized-order.md#event)
+
+### Generate buy order calldata
+Please refer to [build calldata](build-calldata.md)
+
+## Make Order
+Please refer to [make order](make-order-parameter.md)
+
+## Take Order
+Please refer to [take order](take-order-parameter.md)
+
+## Example JS Code
 
 The refereneced contracts locate in [TestERC20](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC20.sol), [TestERC721](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC721.sol) and [NiftyConnectExchange](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/NiftyConnectExchange.sol)
 
 ```js
-
-function generateBuyReplacementPatternForNormalOrder(isERC1155) {
-    let buyReplacementPattern = Buffer.from(web3.utils.hexToBytes(
-        "0x" +
-        "00000000" +                                                          // selector
-        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +  // from
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // to
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // token
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // tokenId
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleRoot
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleProof Offset
-        "0000000000000000000000000000000000000000000000000000000000000000"    // merkleProof Length
-    ));
-
-    if (isERC1155 === true) {
-        buyReplacementPattern = Buffer.from(web3.utils.hexToBytes(
-            "0x" +
-            "00000000" +                                                          // selector
-            "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +  // from
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // to
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // token
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // tokenId
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // amount
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleRoot
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleProof Offset
-            "0000000000000000000000000000000000000000000000000000000000000000"    // merkleProof Length
-        ));
-    }
-    return buyReplacementPattern;
-}
-
-function generateSellReplacementPatternForNormalOrder(isERC1155) {
-    let sellReplacementPattern = Buffer.from(web3.utils.hexToBytes(
-        "0x" +
-        "00000000" +                                                          // selector
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // from
-        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +  // to
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // token
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // tokenId
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleRoot
-        "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleProof Offset
-        "0000000000000000000000000000000000000000000000000000000000000000"    // merkleProof Length
-    ));
-
-    if (isERC1155 === true) {
-        sellReplacementPattern = Buffer.from(web3.utils.hexToBytes(
-            "0x" +
-            "00000000" +                                                          // selector
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // from
-            "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" +  // to
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // token
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // tokenId
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // amount
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleRoot
-            "0000000000000000000000000000000000000000000000000000000000000000" +  // merkleProof Offset
-            "0000000000000000000000000000000000000000000000000000000000000000"    // merkleProof Length
-        ));
-    }
-
-    return sellReplacementPattern;
-}
-
 
 const nftOwner = accounts[1];
 const makerRelayerFeeRecipient = accounts[2];
@@ -89,17 +50,14 @@ const exchangePrice = web3.utils.toBN(1e18);
 const extraPrice = web3.utils.toBN(1e17);
 const ERC721_AMOUNT = web3.utils.toBN(1); // ERC721 amount must be 1
 
-// Step 4: Select Selector. For ERC721, both ERC721TransferSelector and ERC721SafeTransferSelector are valid
+// Step 4: Select Selector. For ERC721
 const ERC721TransferSelector = web3.utils.toBN(0);
 const ERC721SafeTransferSelector = web3.utils.toBN(1);
 
+// Step 5: Calculate replacement pattern
 const sellReplacementPattern = generateBuyReplacementPatternForNormalOrder(false)
 
-const listtime = Math.floor(Date.now() / 1000);
-const expireTime = web3.utils.toBN(listtime).add(web3.utils.toBN(3600)); // expire at one minute later
-
-let salt = "0x"+crypto.randomBytes(32).toString("hex");
-
+// Step 6: make order
 await niftyConnectExchangeInst.makeOrder_(
     [
         NiftyConnectExchange.address,                       // exchange
@@ -124,26 +82,15 @@ await niftyConnectExchangeInst.makeOrder_(
         ERC721_AMOUNT,                // uint amount
         0,                            // uint totalLeaf
     ],
-    1,                      // side
-    1,                      // saleKind
+    1,                      // side (0 buy,1 sell)
+    1,                      // Kind of sale (0 fixPrice buy/sell, 1 Auction) 
     sellReplacementPattern, // replacementPattern
     [],                     // staticExtradata
     [
-        "0x0000000000000000000000000000000000000000000000000000000000000000", // merkle root hash, for trait-based order 
-        "0x0000000000000000000000000000000000000000000000000000000000000000"  // ipfs hash which contain the metadata of merkle proof, for trait-based order 
+        "0x0000000000000000000000000000000000000000000000000000000000000000", // merkle root hash, only for trait-based order 
+        "0x0000000000000000000000000000000000000000000000000000000000000000"  // ipfs hash which contain the metadata of merkle proof, only for trait-based order 
     ],                      // merkleData
     {from: nftOwner}
-);
-
-const sellCalldata = await niftyConnectExchangeInst.buildCallData(
-    ERC721TransferSelector, // uint selector,
-    nftOwner, // address from,
-    "0x0000000000000000000000000000000000000000", // address to,
-    TestERC721.address,// address nftAddress,
-    tokenId, // uint256 tokenId,
-    ERC721_AMOUNT,// uint256 amount,
-    "0x00", // bytes32 merkleRoot
-    [],// bytes32[] memory merkleProof
 );
 
 const currentPrice = await niftyConnectExchangeInst.calculateCurrentPrice_(
@@ -179,9 +126,16 @@ const currentPrice = await niftyConnectExchangeInst.calculateCurrentPrice_(
 
 console.log("currentPrice: "+currentPrice.toString());
 
+// Take Order
+
 const buyer = accounts[3];
 const takerRelayerFeeRecipient = accounts[4];
 
+// Step 1: parse order calldata from event OrderApprovedPartTwo
+const orderApprovedPartTwoEvent = expectEvent.inLogs(makeOrdertx.logs, 'OrderApprovedPartTwo');
+const sellCalldata = orderApprovedPartTwoEvent.args.calldata;
+
+// Step 2: generate buy order calldata
 const buyCalldata = await niftyConnectExchangeInst.buildCallData(
     ERC721TransferSelector, // uint selector,
     "0x0000000000000000000000000000000000000000", // address from,
@@ -193,11 +147,13 @@ const buyCalldata = await niftyConnectExchangeInst.buildCallData(
     [],// bytes32[] memory merkleProof
 );
 
+// Step 3: Calculate replacementPattern for buyOrder
 const buyReplacementPattern = generateBuyReplacementPatternForNormalOrder(false)
 
+// Step 4: Take Order
 await niftyConnectExchangeInst.takeOrder_(
     [   // address[16] addrs,
-        //buy
+        // buy order
         NiftyConnectExchange.address,                       // exchange
         buyer,                                              // maker
         "0x0000000000000000000000000000000000000000",       // taker
@@ -207,7 +163,7 @@ await niftyConnectExchangeInst.takeOrder_(
         "0x0000000000000000000000000000000000000000",       // staticTarget
         TestERC20.address,                                  // paymentToken
 
-        //sell
+        // sell order
         NiftyConnectExchange.address,                       // exchange
         nftOwner,                                           // maker
         "0x0000000000000000000000000000000000000000",       // taker
@@ -218,14 +174,14 @@ await niftyConnectExchangeInst.takeOrder_(
         TestERC20.address,                                  // paymentToken
     ],
     [   // uint[12] uints,
-        //buy
+        // buy order
         exchangePrice,                // uint basePrice
         extraPrice,                   // uint extra
         listtime,                     // uint listingTime
         expireTime,                   // uint expirationTime
         web3.utils.toBN(salt),        // uint salt
         tokenId,                      // uint tokenId
-        //sell
+        // sell order
         exchangePrice,                // uint basePrice
         extraPrice,                   // uint extra
         listtime,                     // uint listingTime

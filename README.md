@@ -5,10 +5,11 @@ This repository contains contracts which implements niftyconnect protocol. This 
 ## Content
 
 - [Exchange Fee Distribution](./docs/exchange-fee-distribution.md)
-- [NFT Transfer Selector](./docs/nft-transfer-selector.md)
 - [Royalty Fee](./docs/royalty-fee.md)
-- [Merkle Proof](./docs/merkle-proof.md)
-- [Decentralized Order Schema](docs/decentralized-order-schema.md)
-    - [Fix Price List Guide](docs/fix-price-list-guide.md)
-    - [Dutch Auction Guide](docs/dutch-acution-guide.md)
-    - [Make Offer Guide](docs/make-offer-guide.md)
+- [Decentralized Order](docs/decentralized-order.md)
+- [Fix Price List Guide](docs/fix-price-list-guide.md)
+- [Dutch Auction Guide](docs/dutch-acution-guide.md)
+- [Make Offer Guide](docs/make-offer-guide.md)
+  - [Normal Offer Guide](docs/normal-offer-guide.md)
+  - [Collection Based Offer Guide](docs/collection-based-offer-guide.md)
+  - [Trait Based Offer Guide](docs/trait-based-offer-guide.md)
