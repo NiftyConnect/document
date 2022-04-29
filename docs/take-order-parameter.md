@@ -55,7 +55,7 @@ await niftyConnectExchangeInst.takeOrder_(
 );
 ```
 
-## Paremeter Details
+## Parameter Details
 
 | name                  |  type         | description                                |
 |-----------------------|---------------|--------------------------------------------|

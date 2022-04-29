@@ -65,7 +65,7 @@ let buyReplacementPattern = generateBuyReplacementPatternForNormalOrder(false)
 const makeOrdertx = await niftyConnectExchangeInst.makeOrder_(
     [
         NiftyConnectExchange.address,                       // exchange
-        player1,                                            // maker
+        buyer,                                              // maker
         "0x0000000000000000000000000000000000000000",       // taker
         buyerRelayerFeeRecipient,                           // makerRelayerFeeRecipient
         "0x0000000000000000000000000000000000000000",       // takerRelayerFeeRecipient
