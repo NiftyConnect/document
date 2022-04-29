@@ -13,3 +13,4 @@ This repository contains contracts which implements niftyconnect protocol. This 
   - [Normal Offer Guide](docs/normal-offer-guide.md)
   - [Collection Based Offer Guide](docs/collection-based-offer-guide.md)
   - [Trait Based Offer Guide](docs/trait-based-offer-guide.md)
+- [Cancel Order Guide](docs/cancel-order.md)

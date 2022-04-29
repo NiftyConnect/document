@@ -1,8 +1,37 @@
+# Trait Based Offer Order
+
+## Introduction
+
+
+## Make Trait Based Offer Order And Take Order
+
+### Merkle Proof
+Please refer to [Merkle Proof Guide](merkle-proof-guide.md).
+
+### Select Selector
+Please refer to [nft transfer selector guide](nft-transfer-selector.md).
+
+### Calculate replacementPattern
 
 `generateBuyReplacementPatternForTraitBasedOrder`
 `generateSellReplacementPatternForTraitBasedOrder`
+Please refer to [replacement pattern guide](replacement-pattern-guide.md).
 
-## Trait Based Offer Order
+### Parse order parameters
+Please refer to [order event](decentralized-order.md#event).
+
+### Generate buy order calldata
+Please refer to [build calldata](build-calldata.md).
+
+## Make Order
+Please refer to [make order](make-order-parameter.md).
+
+## Take Order
+Please refer to [take order](take-order-parameter.md).
+
+## Example JS Code
+
+The refereneced contracts locate in [TestERC20](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC20.sol), [TestERC721](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC721.sol) and [NiftyConnectExchange](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/NiftyConnectExchange.sol).
 
 ```js
 
@@ -182,8 +211,3 @@ await niftyConnectExchangeInst.takeOrder_(
     {from: buyer}
 );
 ```
-
-// Suppose tokenIds is `[7,8,9,10,11,12,13]`, then the ipfs hash is `QmZHbCohMvg1Pcf6rbh21DBhkCb7qCkwb37QK8xf6HQP39`
-// Convert IPFS hash to bytes32.
-// The decode base58 encoding string to get bytes32 encoding ipfs hash: `0xa2a7d9b6454df5a7f4809215f12cc347e9662a4cdcd69d83e8a0f2cf65e1ce4c`.
-const ipfsHash = "0xa2a7d9b6454df5a7f4809215f12cc347e9662a4cdcd69d83e8a0f2cf65e1ce4c";
