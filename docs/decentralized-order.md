@@ -28,7 +28,7 @@
 
 All of the following fields must be present in an order. Some have special sentinel values.
 ### exchange
-Address of the *WyvernExchange* contract. This is a versioning mechanism, ensuring that all signed orders are only valid for a particular deployed version of the Wyvern Protocol on a particular Ethereum chain.
+Address of the *NiftyConnectExchange* contract. This is a versioning mechanism, ensuring that all signed orders are only valid for a particular deployed version of the Wyvern Protocol on a particular Ethereum chain.
 ### maker
 Order maker (who may be buying or selling the contract call — the maker/taker differentiation is strictly a matter of fees).
 ### taker
