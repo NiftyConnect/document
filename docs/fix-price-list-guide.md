@@ -64,12 +64,11 @@ const sellReplacementPattern = generateSellReplacementPatternForNormalOrder(fals
 
 // Step 6: Make Fix Price Order
 await niftyConnectExchangeInst.makeOrder_(
-    [   // address[10] addrs,
+    [   // address[9] addrs,
         NiftyConnectExchange.address,                       // exchange address
         nftOwner,                                           // maker address
         "0x0000000000000000000000000000000000000000",       // taker address
         makerRelayerFeeRecipient,                           // maker relayer fee recipient
-        "0x0000000000000000000000000000000000000000",       // taker relayer fee recipient
         TestERC721.address,                                 // nft contract address
         "0x0000000000000000000000000000000000000000",       // staticTarget
         TestERC20.address,                                  // paymentToken
