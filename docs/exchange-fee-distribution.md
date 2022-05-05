@@ -4,7 +4,7 @@
 
 ```js
 uint public constant INVERSE_BASIS_POINT = 10000;
-uint public exchangeFeeRate = 200;
+uint public exchangeFeeRate = 0;
 ```
 
 The exchange fee rate is predefined in the protocol. Users can't specify this in their orders. Once an order is token by someone, the exchange fee will be deducted automatically.
@@ -13,7 +13,7 @@ The exchange fee rate is predefined in the protocol. Users can't specify this in
 exchangeFeeAmount = exchangePrice * exchangeFeeRate / INVERSE_BASIS_POINT
 ```
 
-
+Initially, the `exchangeFeeRate` will be set to zero. Later, we will import governance mechanism to modify exchange fee rate.
 
 ## Fee Distribution
 
@@ -57,7 +57,7 @@ protocolBenefitAmount = exchangeFeeAmount * protocolFeeShare / INVERSE_BASIS_POI
 ## Governance
 
 ```js
-uint public exchangeFeeRate = 200;
+uint public exchangeFeeRate = 0;
 uint public makerRelayerFeeShare = 8000;
 uint public takerRelayerFeeShare = 1500;
 uint public protocolFeeShare = 500;

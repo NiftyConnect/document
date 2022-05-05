@@ -26,7 +26,7 @@ interface IOwnable {
 }
 ```
 
-If a nft contract has implemented the above interface, then the nft contract owner can specify its royalty parameters in `RoyaltyRegisterHub`
+If a nft contract doesn't implement the above interface, the nft contract owner can specify its royalty parameters in `RoyaltyRegisterHub`
 
 ```js
 function setRoyaltyRateFromNFTOwners(address _nftAddress, uint256 _royaltyRate, address _receiver) public returns (bool)
