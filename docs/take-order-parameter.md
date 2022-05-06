@@ -61,10 +61,11 @@ await niftyConnectExchangeInst.takeOrder_(
 |-----------------------|---------------|--------------------------------------------|
 | addrs                 | address[16]   | // buy order<br />addrs[0]: exchange<br /> addrs[1]: maker<br /> addrs[2]: taker<br /> addrs[3]: makerRelayerFeeRecipient<br /> addrs[4]: takerRelayerFeeRecipient<br /> addrs[5]: nftAddress<br /> addrs[6]: staticTarget<br /> addrs[7]: paymentToken<br /><br />// sell order<br />addrs[8]: exchange<br /> addrs[9]: maker<br /> addrs[10]: taker<br /> addrs[11]: makerRelayerFeeRecipient<br /> addrs[12]: takerRelayerFeeRecipient<br /> addrs[13]: nftAddress<br /> addrs[14]: staticTarget<br /> addrs[15]: paymentToken |
 | uints                 | uint[12]      | // buy order<br />uints[0]: basePrice<br />uints[1]: extra, endPrice in Dutch auction<br />uints[2]: listing iime<br />uints[3]: expirationTime<br />uints[4]: salt<br />uints[5]: tokenId<br /><br />//sell order<br />uints[6]: basePrice<br />uints[7]: extra, endPrice in Dutch auction<br />uints[8]: listing iime<br />uints[9]: expirationTime<br />uints[10]: salt<br />uints[11]: tokenId |
-| sidesKinds            | uint8[4]      | // buy order<br />sidesKinds[0]: side <br />sidesKinds[1]: saleKind<br /><br />// sell order<br />sidesKinds[2]: side<br />sidesKinds[3]saleKind |
+| sidesKinds            | uint8[4]      | // buy order<br />sidesKinds[0]: side <br />sidesKinds[1]: saleKind<br /><br />// sell order<br />sidesKinds[2]: side<br />sidesKinds[3]: saleKind |
 | buyCalldata           | bytes         | buy order calldata  |
 | sellCalldata          | bytes         | sell order calldata  |
 | buyReplacementPattern | bytes         | buy order replacementPattern  |
 | sellReplacementPattern| bytes         | sell order replacementPattern  |
 | staticExtradataBuy    | bytes         | calldata of static target contract in buy order |
 | staticExtradataSell   | bytes         | calldata of static target contract in sell order  |
+| rssMetadata           | bytes32       | metadata, suggested value is hex encoding IPFS hash |

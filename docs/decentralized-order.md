@@ -9,20 +9,20 @@
         address taker;
         address makerRelayerFeeRecipient;
         address takerRelayerFeeRecipient;
-        SaleKindInterface.Side side;
-        SaleKindInterface.SaleKind saleKind;
+        uint8 side;
+        uint8 saleKind;
         address nftAddress;
-        uint tokenId;
+        uint256 tokenId;
         bytes calldata;
         bytes replacementPattern;
         address staticTarget;
         bytes staticExtradata;
         address paymentToken;
-        uint basePrice;
-        uint extra;
-        uint listingTime;
-        uint expirationTime;
-        uint salt;
+        uint256 basePrice;
+        uint256 extra;
+        uint256 listingTime;
+        uint256 expirationTime;
+        uint256 salt;
     }
 ```
 
@@ -34,21 +34,21 @@ Order maker (who may be buying or selling the contract call — the maker/taker 
 ### taker
 Order taker, if a specific address must take the order, otherwise the zero-address as a sentinel value to indicate that the order can be taken by anyone.
 ### makerRelayerFeeRecipient
-Maker relayer fee will be paid to `makerRelayerFeeRecipient`. 
+Maker relayer fee will be paid to `makerRelayerFeeRecipient`. These tools which can facilitate users to make buy/sell orders can specify this address.
 ### takerProtocolFeeRecipient
-Taker relayer fee will be paid to `takerProtocolFeeRecipient`.
+Taker relayer fee will be paid to `takerProtocolFeeRecipient`. These tools which can facilitate users to take buy/sell orders can specify this address.
 ### side
-Side (buy or sell). Sell-side orders execute contract calls and receive tokens, buy-side orders purchase contract calls and pay tokens.
+Side (`0` buy/`1` sell). Sell-side orders execute contract calls and receive tokens, buy-side orders purchase contract calls and pay tokens.
 ### saleKind
-Kind of sale, `FixedPrice` or `DutchAuction`.
+Kind of sale, `0` for `FixedPrice` and `1` for `DutchAuction`.
 ### nftAddress;
-The nft asset address
+The nft asset contract address
 ### tokenId;
 The token id of a NFT asset
 ### calldata
-Calldata (bytes).
+Order calldata is the abi encoding contract calldata to [MerkleValidator](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/MerkleValidator.sol) which specify how the nft assets will be transferred. `MerkleValidator` has implemented three methods to handle transferring `ERC721` and `ERC1155` assets: `matchERC721UsingCriteria`, `matchERC721WithSafeTransferUsingCriteria` and `matchERC1155UsingCriteria`.
 ### replacementPattern
-Mask specifying which parts of the calldata can be changed, or an empty array for no replacement.
+Mask specifying which parts of the calldata can be changed, or an empty array for no replacement. Please refer to [replacement pattern guide](./replacement-pattern-guide.md)
 ### staticTarget
 Target for `STATICCALL`, or zero-address as a sentinel value to indicate no `STATICCALL`.
 ### staticExtradata

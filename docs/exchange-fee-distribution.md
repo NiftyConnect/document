@@ -24,7 +24,7 @@ uint public constant INVERSE_BASIS_POINT = 10000;
 uint public makerRelayerFeeShare = 8000;
 ```
 
-Order maker relayers are the tools which facilitate users to make buy or sell orders on the protocol. These tools can specify their own addresses to gain the benefit.
+Order maker relayers are the tools which facilitate users to make buy/sell orders on the protocol. These tools can specify their own addresses to gain the benefit.
 ```
 orderMakerRelayerBenefitAmount = exchangeFeeAmount * makerRelayerFeeShare / INVERSE_BASIS_POINT
 ```
@@ -36,7 +36,7 @@ uint public constant INVERSE_BASIS_POINT = 10000;
 uint public takerRelayerFeeShare = 1500;
 ```
 
-Order taker relayers are the tools which facilitate users to take buy or sell orders on the protocol. These tools can specify their own addresses to gain the benefit.
+Order taker relayers are the tools which facilitate users to take buy/sell orders on the protocol. These tools can specify their own addresses to gain the benefit.
 ```
 orderTakerRelayerBenefitAmount = exchangeFeeAmount * takerRelayerFeeShare / INVERSE_BASIS_POINT
 ```
@@ -63,4 +63,4 @@ uint public takerRelayerFeeShare = 1500;
 uint public protocolFeeShare = 500;
 ```
 
-The above parameters in the protocol can be modified by on-chain governance.
+The above parameters in the protocol will be modified by on-chain governance.
