@@ -5,9 +5,9 @@
 | Name                           | Address                                    |
 |--------------------------------|--------------------------------------------|
 | MerkleValidator                | [0x5d01d08834283885b97c4a9eef16631707c83f9b](https://etherscan.io/address/0x5d01d08834283885b97c4a9eef16631707c83f9b) |
-| RoyaltyRegisterHub             | [0x538a332af0948a2a0ed305c1965d30a3c9f83141](https://etherscan.io/address/0x538a332af0948a2a0ed305c1965d30a3c9f83141) |
-| NiftyConnectTokenTransferProxy | [0xd766fab1a146c835ca3ae2b2bf27b179f52b0211](https://etherscan.io/address/0xd766fab1a146c835ca3ae2b2bf27b179f52b0211) |
-| NiftyConnectExchange           | [0x95030f92569282a9b9e8c8de8e532ca2926ed715](https://etherscan.io/address/0x95030f92569282a9b9e8c8de8e532ca2926ed715) |
+| RoyaltyRegisterHub             | [0xD766fAB1A146C835CA3aE2b2bf27B179f52b0211](https://etherscan.io/address/0xD766fAB1A146C835CA3aE2b2bf27B179f52b0211) |
+| NiftyConnectTokenTransferProxy | [0xC09F6EbF24D9cc1B4140BaA992AfB7A5BF41A547](https://etherscan.io/address/0xC09F6EbF24D9cc1B4140BaA992AfB7A5BF41A547) |
+| NiftyConnectExchange           | [0xaD7Ce050E176fDF23520330f0E7F342276b3c891](https://etherscan.io/address/0xaD7Ce050E176fDF23520330f0E7F342276b3c891) |
 
 ## BSC
 
