@@ -42,11 +42,11 @@ Order taker, a specific address must take the order, otherwise the zero-address 
 
 ### makerRelayerFeeRecipient
 
-Maker relayer fee will be paid to `makerRelayerFeeRecipient`. These tools which can facilitate users to make buy/sell orders can specify this address.
+Maker relayer fee will be paid to `makerRelayerFeeRecipient`. These tools can facilitate users to make buy/sell orders, this address can be specified.
 
 ### takerProtocolFeeRecipient
 
-Taker relayer fee will be paid to `takerProtocolFeeRecipient`. These tools which can facilitate users to take buy/sell orders can specify this address.
+Taker relayer fee will be paid to `takerProtocolFeeRecipient`. These tools can facilitate users to take buy/sell orders, this address can be specified.
 
 ### side
 
@@ -133,4 +133,4 @@ event OrderApprovedPartTwo(
                             uint salt);
 ```
 
-In this protocol, only decentralized orders are supported. All order data can be parsed from above two events: `OrderApprovedPartOne` and `OrderApprovedPartTwo`. Users can write extra order message(such as personal contact information or the merkle proof of metadata for trait-based order) to IPFS and write the IPFS hash to `ipfsHash` in the event `OrderApprovedPartOne`.
+In this protocol, only decentralized orders are supported. All order data can be parsed from the above two events: `OrderApprovedPartOne` and `OrderApprovedPartTwo`. Users can write an extra order message (such as personal contact information or the merkle proof of metadata for trait-based order) to IPFS and write the IPFS hash to `ipfsHash` in the event `OrderApprovedPartOne`.

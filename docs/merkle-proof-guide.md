@@ -4,7 +4,7 @@ The merkle root and proof is only necessary in traid-based order. For other orde
 
 ## Merkle Root Calculation Algorithm
 
-Suppose a user filter out a set of tokenIds according to its traits, and the token id array is `[12,10,7,8,9,11,13]`. Then it needs to sort the token id array and build a binary tree:
+Suppose a user filters out a set of tokenIds according to its traits, and the token id array is `[12,10,7,8,9,11,13]`. Then it needs to sort the token id array and build a binary tree:
 
 ```
                hash1234(hash12,hash34)
@@ -14,12 +14,11 @@ Suppose a user filter out a set of tokenIds according to its traits, and the tok
   hash1(7,8)  hash2(9,10)  hash3(11,12)  hash4(13,13)
    /   \       /    \        /    \           ||
   7     8      9    10      11    12          13 
-
 ```
 
 ### MerkleRoot
 
-The merkleRoot is `hash1234(hash12,hash34)` and here its value is `0x72da2598329de27c7d20ea24372ca2a4732aaac2d9386467373baa7874b870f6`.
+The merkleRoot is `hash1234(hash12,hash34)` and here is value its `0x72da2598329de27c7d20ea24372ca2a4732aaac2d9386467373baa7874b870f6`.
 
 ### MerkleProof
 
@@ -128,11 +127,12 @@ function generateMerkleProofAndRoot(targetTokenId, tokenIds) {
 
 ## Metadata to IPFS
 
-- Write tokenIds to a text file and upload it to IPFS. 
-- Convert IPFS hash to bytes32
-- Fill `merkleRoot` to `merkleData[0]` and `ipfsHash` to `merkleData[1]`
+* Write tokenIds to a text file and upload it to IPFS.
+* Convert IPFS hash to bytes32
+* Fill `merkleRoot` to `merkleData[0]` and `ipfsHash` to `merkleData[1]`
 
 This is the example JS code to convert the bese58 encoding ipfs hash to bytes32
+
 ```js
 import bs58 from 'bs58'
 

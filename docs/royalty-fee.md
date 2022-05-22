@@ -1,6 +1,6 @@
 # Royalty Fee
 
-When an order is matched, and the royalty fee of the referenced NFT asset is not zero, the royalty fee will be directly transferred to the royalty fee address. This protocol supports two ways to specify the royalty fee amount and recipient address.
+When an order is matched and the royalty fee of the referenced NFT asset is not zero, the royalty fee will be directly transferred to the royalty fee address. This protocol supports two ways to specify the royalty fee amount and recipient address.
 
 ## IERC2981
 
@@ -16,7 +16,7 @@ interface IERC2981 {
 }
 ```
 
-Firstly, this protocol will check whether the target nft contract has implemented the above interface. If so, this prorocol will follow the royalty fee mechanism specified by the nft contract. Otherwise, the protocol will try to get the royaltyInfo from `RoyaltyRegisterHub`.
+Firstly, this protocol will check whether the target nft contract has implemented the above interface. If so, this protocol will follow the royalty fee mechanism specified by the nft contract. Otherwise, the protocol will try to get the royaltyInfo from `RoyaltyRegisterHub`.
 
 ## RoyaltyRegisterHub
 
@@ -26,10 +26,10 @@ interface IOwnable {
 }
 ```
 
-If a nft contract doesn't implement the interface `IERC2981`, the owner address of the NFT contract can specify its royalty parameters in `RoyaltyRegisterHub`.
+If a nft contract doesn't implement the interface `IERC2981`, the owners address of the NFT contract can specify its royalty parameters in `RoyaltyRegisterHub`.
 
 ```js
 function setRoyaltyRateFromNFTOwners(address _nftAddress, uint256 _royaltyRate, address _receiver) public returns (bool)
 ```
 
-If the `IOwnable` interface is not implemented too, the nft contract deployer can contract the protocol developer team to set the royalty parameters.
+If the `IOwnable` interface is not implemented either, the nft contract deployer can contract the protocol developer team to set the royalty parameters.

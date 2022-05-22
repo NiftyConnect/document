@@ -1,43 +1,52 @@
 # Trait Based Offer Order
 
 ## Introduction
+
 A trait based offer order is a buy order. It can create an offer to partial nft assets in a given nft collection. It is up to the nft owner to decide whether to accept or not.
 
 ## Make Trait Based Offer Order And Take Order
 
 ### Merkle Proof
+
 Please refer to [Merkle Proof Guide](merkle-proof-guide.md).
 
 ### Select Selector
+
 Please refer to [nft transfer selector guide](nft-transfer-selector.md).
 
 ### Empty TokenId
+
 ```js
 const emptyTokenId = web3.utils.toBN(0);
 ```
-A trait based order offers to multiple nft assets. So the token id in maker order will be ignored. Here we just set it to zero.
+
+A trait based order makes offers to multiple nft assets. So the token id in maker order will be ignored. Here we just set it to zero.
 
 ### Calculate replacementPattern
-Comparing with the replacementPattern in normal orders, here we need copy token id and merkle proof from sell order. So the replacementPattern buy should set the related flag to `1`. Please find the implementation of `generateBuyReplacementPatternForTraitBasedOrder` and `generateSellReplacementPatternForTraitBasedOrder` in [replacement pattern guide](replacement-pattern-guide.md).
+
+Comparing with the replacementPattern in normal orders, here we need copy the token id and merkle proof from sell order. So the replacementPattern buy should set the related flag to `1`. Please find the implementation of `generateBuyReplacementPatternForTraitBasedOrder` and `generateSellReplacementPatternForTraitBasedOrder` in [replacement pattern guide](replacement-pattern-guide.md).
 
 ### Parse order parameters
+
 Please refer to [order event](decentralized-order.md#event).
 
 ### Generate buy order calldata
+
 Please refer to [build calldata](build-calldata.md).
 
 ## Make Order
+
 Please refer to [make order](make-order-parameter.md).
 
 ## Take Order
+
 Please refer to [take order](take-order-parameter.md).
 
 ## Example JS Code
 
-The refereneced contracts locate in [TestERC20](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC20.sol), [TestERC721](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC721.sol) and [NiftyConnectExchange](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/NiftyConnectExchange.sol).
+The referenced contracts are located in [TestERC20](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC20.sol), [TestERC721](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC721.sol) and [NiftyConnectExchange](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/NiftyConnectExchange.sol).
 
 ```js
-
 const Web3 = require('web3');
 const crypto = require('crypto');
 const keccak256 = require('keccak256');

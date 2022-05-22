@@ -1,34 +1,40 @@
 # Fix Price List Guide
 
 ## Introduction
-The fix price list order is used to sell a nft asset at a given price. Anyone who want to buy the nft asset at the given price can take the order.
+
+The fix price list order is used to sell a nft asset at a given price. Anyone who wants to buy the nft asset at the given price can take the order.
 
 ## Make Fix Price List And Take Order
 
 ### Select Selector.
+
 Please refer to [nft transfer selector guide](nft-transfer-selector.md)
 
 ### Calculate replacementPattern
+
 Please refer to [replacement pattern guide](replacement-pattern-guide.md)
 
 ### Parse order parameters
+
 Please refer to [order event](decentralized-order.md#event)
 
 ### Generate buy order calldata
+
 Please refer to [build calldata](build-calldata.md)
 
 ## Make Order
+
 Please refer to [make order](make-order-parameter.md)
 
 ## Take Order
+
 Please refer to [take order](take-order-parameter.md)
 
 ## Example JS Code
 
-The refereneced contracts locate in [TestERC20](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC20.sol), [TestERC721](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC721.sol) and [NiftyConnectExchange](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/NiftyConnectExchange.sol)
+The referenced contracts are located in [TestERC20](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC20.sol), [TestERC721](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/test/TestERC721.sol) and [NiftyConnectExchange](https://github.com/NiftyConnect/NiftyConnect-Contracts/blob/main/contracts/NiftyConnectExchange.sol)
 
 ```js
-
 const Web3 = require('web3');
 const crypto = require('crypto');
 const keccak256 = require('keccak256');
